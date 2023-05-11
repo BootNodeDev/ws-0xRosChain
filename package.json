@@ -1,0 +1,28 @@
+{
+  "name": "ws-0xRosChain",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "compile": "hardhat compile",
+    "clean": "hardhat clean",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "gas-report": "REPORT_GAS=true hardhat clean && hardhat test",
+    "lint": "yarn run lint:sol && yarn run lint:ts && yarn run prettier:check",
+    "lint:sol": "solhint --config ./.solhint.json \"src/**/*.sol\"",
+    "lint:ts": "eslint --config ./.eslintrc.js --ignore-path ./.eslintignore --ext .js,.ts .",
+    "prettier": "prettier --config ./.prettierrc.yaml --write \"**/*.{js,json,md,sol,ts,yaml,yml}\"",
+    "prettier:check": "prettier --check --config ./.prettierrc.yaml \"**/*.{js,json,md,sol,ts,yaml,yml}\"",
+    "deploy:goerli": "hardhat compile && hardhat --network goerli deploy",
+    "verify:goerli": "hardhat --network goerli etherscan-verify"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@openzeppelin/contracts": "^4.8.3",
+    "dotenv": "^16.0.3",
+    "hardhat": "^2.14.0",
+    "hardhat-deploy": "^0.11.28",
+    "solhint": "^3.4.1",
+    "solhint-plugin-prettier": "^0.0.5"
+  }
+}
