@@ -22,6 +22,10 @@ contract ZxRosChainMinter is Context, Ownable {
      */
     IERC721Minter public token;
 
+    // Keep track of users addresses that already minted to NFT
+    mapping(address => bool) public minters;
+
+    error ZxRosChainMinter__mint_userAlreadyMinted();
     error ZxRosChainMinter__mint_tokenNotSet();
 
     event SetToken(address token);
@@ -40,7 +44,11 @@ contract ZxRosChainMinter is Context, Ownable {
      * @dev Mint a new token for the caller of this function.
      */
     function mint() external {
+        if (address(token) == address(0)) revert ZxRosChainMinter__mint_tokenNotSet();
+        if (minters[_msgSender()]) revert ZxRosChainMinter__mint_userAlreadyMinted();
+
         uint256 tokenId = token.mint(_msgSender());
+        minters[_msgSender()] = true;
 
         emit MintToken(address(token), _msgSender(), tokenId);
     }

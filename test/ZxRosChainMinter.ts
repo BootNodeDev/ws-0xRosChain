@@ -65,7 +65,14 @@ describe("ZxRosChainMinter", function () {
       expect(await nft.ownerOf(nextTokenId)).to.equal(someUser.address);
     });
 
-    it("should be restricted to 1 token per user");
+    it("should be restricted to 1 token per user", async function () {
+      await minter.connect(someUser).mint()
+
+      await expect(minter.connect(someUser).mint()).to.be.revertedWithCustomError(
+        minter,
+        "ZxRosChainMinter__mint_userAlreadyMinted",
+      );
+    });
 
     // Dejar este para el final, si hacemos tiempo lo vemos!
     // Hint: https://media.consensys.net/ever-wonder-how-merkle-trees-work-c2f8b7100ed3
