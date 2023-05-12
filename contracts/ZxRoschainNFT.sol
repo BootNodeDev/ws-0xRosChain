@@ -14,6 +14,9 @@ import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
  * a lot of security risks.
  */
 contract ZxRosChainNFT is ERC721 {
+    // The max amount of tokens that can be minted. Can't be changed
+    uint256 public immutable MAX_SUPPLY;
+
     /**
      * @dev Base URI for computing {tokenURI}.
      */
@@ -24,17 +27,22 @@ contract ZxRosChainNFT is ERC721 {
      */
     uint256 public nextId;
 
+
+    error ZxRosChainMinter__mint_maxSupplyReached();
+
     /**
      * @dev Sets the Base URI, name and symbol.
      */
-    constructor(string memory _uri) ERC721("0xRosChainNFT", "0xRSC") {
+    constructor(string memory _uri, uint256 _maxSupply) ERC721("0xRosChainNFT", "0xRSC") {
         _baseTokenURI = _uri;
+        MAX_SUPPLY = _maxSupply;
     }
 
     /**
      * @dev Safely the next tokenId and transfers it to `_to`.
      */
     function mint(address _to) external returns (uint256) {
+        if (nextId >= MAX_SUPPLY) revert ZxRosChainMinter__mint_maxSupplyReached();
         uint256 tokenId = nextId++;
         _safeMint(_to, tokenId);
         return tokenId;

@@ -10,11 +10,13 @@ describe("ZxRosChainNFT", function () {
   let owner: SignerWithAddress;
   let someUser: SignerWithAddress;
 
+  let MAX_SUPPLY = 100;
+
   before(async () => {
     [owner, someUser] = await ethers.getSigners();
     owner;
     const NFT = await ethers.getContractFactory("ZxRosChainNFT");
-    nft = await NFT.deploy("testURI/");
+    nft = await NFT.deploy("testURI/", MAX_SUPPLY);
   });
 
   beforeEach(async () => {
@@ -44,8 +46,8 @@ describe("ZxRosChainNFT", function () {
       await expect(nft.mint(someUser.address)).to.be.reverted;
     });
 
-    it("should be caped to 100 NFTs", async function () {
-      for (let index = 0; index < 100; index++) {
+    it("should be caped to MAX_SUPPLY NFTs", async function () {
+      for (let index = 0; index < MAX_SUPPLY; index++) {
         await nft.mint(someUser.address);
       }
       await expect(nft.mint(someUser.address)).to.be.reverted;
