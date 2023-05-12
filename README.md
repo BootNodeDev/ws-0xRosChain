@@ -20,6 +20,9 @@ Es el contrato con el que deberían interactuar los usuario que participan del m
 - Solo debería permitir mintear 1 NFT por address
 - Solo un grupo de addresses habilitadas deberían poder mintear un NFT
 
+## WARNING
+Los contratos de este repo tienen varios problemas de seguridad que no se tuvieron en cuenta a la hora de escribirlos para que sean simples ayuden a resolver los problemas que se plantearon. De ninguna manera se pueden considerar aptos para ser usados en un proyecto real.
+
 ----
 ### Pre-requirements
 

@@ -9,6 +9,13 @@ import { IERC721Minter } from "./interfaces/IERC721Minter.sol";
 // Uncomment this line to use console.log
 // import "hardhat/console.sol";
 
+/**
+ * @title ZxRosChainMinter
+ * @author lmcorbalan
+ * @dev A simple version of a NFT contract.
+ * WARNING: This contract is meant to be used in a Solidity workshop and is not production ready at all, it may contain
+ * a lot of security risks.
+*/
 contract ZxRosChainMinter is Context, Ownable {
     /**
      * @dev The token this contract mints.
