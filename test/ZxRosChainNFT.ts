@@ -9,14 +9,15 @@ describe("ZxRosChainNFT", function () {
   let snapshot: SnapshotRestorer;
   let owner: SignerWithAddress;
   let someUser: SignerWithAddress;
+  let minter: SignerWithAddress;
 
   let MAX_SUPPLY = 100;
 
   before(async () => {
-    [owner, someUser] = await ethers.getSigners();
+    [owner, someUser, minter] = await ethers.getSigners();
     owner;
     const NFT = await ethers.getContractFactory("ZxRosChainNFT");
-    nft = await NFT.deploy("testURI/", MAX_SUPPLY);
+    nft = await NFT.deploy("testURI/", MAX_SUPPLY, minter.address);
   });
 
   beforeEach(async () => {
@@ -36,19 +37,22 @@ describe("ZxRosChainNFT", function () {
 
   describe("tokenURI", function () {
     it("Should get the right token URI", async function () {
-      await nft.mint(someUser.address);
+      await nft.connect(minter).mint(someUser.address);
       expect(await nft.tokenURI(0)).to.equal("testURI/0");
     });
   });
 
   describe("mint", function () {
     it("only minter should be allowed to mint new a NFT", async function () {
-      await expect(nft.mint(someUser.address)).to.be.reverted;
+      await expect(nft.mint(someUser.address)).to.be.revertedWithCustomError(
+        nft,
+        "ZxRosChainMinter__onlyMinter",
+      );
     });
 
     it("should be caped to MAX_SUPPLY NFTs", async function () {
       for (let index = 0; index < MAX_SUPPLY; index++) {
-        await nft.mint(someUser.address);
+        await nft.connect(minter).mint(someUser.address);
       }
       await expect(nft.mint(someUser.address)).to.be.reverted;
     });

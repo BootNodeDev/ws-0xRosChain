@@ -16,11 +16,11 @@ describe("ZxRosChainMinter", function () {
   before(async () => {
     [deployer, owner, someUser] = await ethers.getSigners();
     deployer;
-    const NFT = await ethers.getContractFactory("ZxRosChainNFT");
-    nft = await NFT.deploy("testURI/", MAX_SUPPLY);
-
     const Minter = await ethers.getContractFactory("ZxRosChainMinter");
     minter = await Minter.deploy();
+
+    const NFT = await ethers.getContractFactory("ZxRosChainNFT");
+    nft = await NFT.deploy("testURI/", MAX_SUPPLY, minter.address);
 
     await minter.transferOwnership(owner.address);
   });
