@@ -32,11 +32,8 @@
     "eslint-plugin-promise": "^6.1.1",
     "hardhat": "^2.14.0",
     "hardhat-deploy": "^0.11.28",
-<<<<<<< HEAD
     "husky": "^8.0.3",
-=======
     "merkletreejs": "^0.3.10",
->>>>>>> 8409c61 (Add merkle tree checks to minter)
     "solhint": "^3.4.1",
     "solhint-plugin-prettier": "^0.0.5"
   }

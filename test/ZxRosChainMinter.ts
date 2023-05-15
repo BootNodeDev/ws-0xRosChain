@@ -14,11 +14,11 @@ describe("ZxRosChainMinter", function () {
   let allowedUser: SignerWithAddress;
   let allowedUser2: SignerWithAddress;
   let notAllowedUser: SignerWithAddress;
-  let MAX_SUPPLY = 100;
-
   let merkleTree: MerkleTree;
   let allowedUsers: string[];
   let leafNodes: string[];
+
+  const MAX_SUPPLY = 100;
 
   before(async () => {
     [deployer, owner, allowedUser, allowedUser2, notAllowedUser] = await ethers.getSigners();
@@ -31,10 +31,7 @@ describe("ZxRosChainMinter", function () {
 
     await minter.transferOwnership(owner.address);
 
-    allowedUsers = [
-      allowedUser.address,
-      allowedUser2.address
-    ];
+    allowedUsers = [allowedUser.address, allowedUser2.address];
     leafNodes = allowedUsers.map((address) => ethers.utils.keccak256(address));
     merkleTree = new MerkleTree(leafNodes, ethers.utils.keccak256, { sortPairs: true });
   });
@@ -64,7 +61,7 @@ describe("ZxRosChainMinter", function () {
   // describe("setMerkelRoots")
 
   describe("mint", function () {
-    let allowedUserProof: string[]
+    let allowedUserProof: string[];
 
     before(async () => {
       await minter.connect(owner).setToken(nft.address);
@@ -87,7 +84,7 @@ describe("ZxRosChainMinter", function () {
     });
 
     it("should be restricted to 1 token per user", async function () {
-      await minter.connect(allowedUser).mint(allowedUserProof)
+      await minter.connect(allowedUser).mint(allowedUserProof);
 
       await expect(minter.connect(allowedUser).mint(allowedUserProof)).to.be.revertedWithCustomError(
         minter,

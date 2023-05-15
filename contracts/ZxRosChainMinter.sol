@@ -66,7 +66,6 @@ contract ZxRosChainMinter is Context, Ownable {
         if (!MerkleProof.verify(proofs, merkelRoots[address(token)], keccak256(abi.encodePacked(_msgSender()))))
             revert ZxRosChainMinter__mint_invalidMerkleProof();
 
-
         uint256 tokenId = token.mint(_msgSender());
         minters[_msgSender()][address(token)] = true;
 

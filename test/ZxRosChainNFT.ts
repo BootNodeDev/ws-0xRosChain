@@ -11,7 +11,7 @@ describe("ZxRosChainNFT", function () {
   let someUser: SignerWithAddress;
   let minter: SignerWithAddress;
 
-  let MAX_SUPPLY = 100;
+  const MAX_SUPPLY = 100;
 
   before(async () => {
     [owner, someUser, minter] = await ethers.getSigners();
@@ -44,10 +44,7 @@ describe("ZxRosChainNFT", function () {
 
   describe("mint", function () {
     it("only minter should be allowed to mint new a NFT", async function () {
-      await expect(nft.mint(someUser.address)).to.be.revertedWithCustomError(
-        nft,
-        "ZxRosChainMinter__onlyMinter",
-      );
+      await expect(nft.mint(someUser.address)).to.be.revertedWithCustomError(nft, "ZxRosChainMinter__onlyMinter");
     });
 
     it("should be caped to MAX_SUPPLY NFTs", async function () {
