@@ -12,6 +12,7 @@ describe("ZxRosChainNFT", function () {
 
   before(async () => {
     [owner, someUser] = await ethers.getSigners();
+    owner;
     const NFT = await ethers.getContractFactory("ZxRosChainNFT");
     nft = await NFT.deploy("testURI/");
   });

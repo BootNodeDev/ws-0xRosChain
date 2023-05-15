@@ -7,12 +7,14 @@ En [contracts](./contracts/) van a encontrar 2 smart contracts que funcionan per
 A partir de los tests vamos a tener que trabajar en los contratos para cumplir con los requerimientos que se plantean.
 
 ## `ZxRosChainNFT`
+
 Es un token ERC721 (NFT)
 
 - Solo el contrato `ZxRosChainMinter` deberia poder llamar a la función `mint`
 - La cantidad de `ZxRosChainNFT`s debería estar limitada a un cierto número
 
 ## `ZxRosChainMinter`
+
 Es el contrato con el que deberían interactuar los usuario que participan del mint de `ZxRosChainNFT`
 
 - Debería emitir un error particular si se intenta llamar a la función `mint` sin que haya un token configurado
@@ -21,9 +23,11 @@ Es el contrato con el que deberían interactuar los usuario que participan del m
 - Solo un grupo de addresses habilitadas deberían poder mintear un NFT
 
 ## WARNING
+
 Los contratos de este repo tienen varios problemas de seguridad que no se tuvieron en cuenta a la hora de escribirlos para que sean simples ayuden a resolver los problemas que se plantearon. De ninguna manera se pueden considerar aptos para ser usados en un proyecto real.
 
-----
+---
+
 ### Pre-requirements
 
 The following prerequisites are required:
@@ -96,11 +100,13 @@ cp .env.example .env
 ### Deploy the contracts to Goerli Network
 
 Deploy contracts:
+
 ```sh
 npm run deploy:goerli
 ```
 
 Verify contracts:
+
 ```sh
 npm run verify:goerli
 ```

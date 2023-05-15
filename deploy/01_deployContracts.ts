@@ -2,7 +2,7 @@ import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import * as dotenv from "dotenv";
 
-import { ZxRosChainNFT, ZxRosChainMinter } from "../typechain-types";
+import { ZxRosChainMinter } from "../typechain-types";
 
 dotenv.config();
 
